@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- meta -->
+  {include file="common@include:meta"/}
+  <!-- title, keywords, description -->
+  {include file="common@include:seo"/}
+  <!-- bootstrap3 css -->
+  {include file="common@include:css-bootstrap3"/}
+  <!-- admin lite css -->
+  {include file="common@include:css-adminlte"/}
+  <!-- bootstrap4's margin set -->
+  {include file="common@include:css-bootstrap3-marginset-from4"/}
+  <!-- browser compatibility -->
+  {include file="common@include:compatibility"/}
+  <!-- google font -->
+  {include file="common@include:css-googlefont"/}
+  <!-- common css -->
+  {include file="common@include:css-common"/}
+  <!-- css -->
+  {block name="css"}
+  {/block}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+
+    <header class="main-header">
+
+      <!-- Logo -->
+      {include file="common@include:segment-logo"/}
+
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          <span class="sr-only">显示/隐藏导航菜单</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            {block name="navbar-right-menu"}
+            {include file="common@include:temp-navrightmenu"/}
+            {/block}
+            {block name="navbar-user-info"}
+            {include file="common@include:temp-navuserinfo"/}
+            {/block}
+            <!-- Control Sidebar Toggle Button -->
+            <li>
+              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        {include file="common@include:segment-menu"/}
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1 class="hidden-xs hidden-sm">
+          {block name="main-title"}
+          后台标题
+          <small>副标题</small>
+          {/block}
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{:url('index/index/index')}"><i class="fa fa-dashboard"></i> 首页</a></li>
+          {block name="bread-nav"}
+          {/block}
+          <li class="active">{$pagetitle|default=""}</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        {block name="main-content"}
+        <!-- 页面内容写这里 -->
+        {/block}
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    {include file="common@include:segment-footer"/}
+
+    <!-- Right Control Sidebar -->
+    {include file="common@include:segment-rightbar"/}
+
+    </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery 3 -->
+  {include file="common@include:js-jquery"/}
+  <!-- Bootstrap 3.4.1 -->
+  {include file="common@include:js-bootstrap3"/}
+  <!-- FastClick -->
+  {include file="common@include:js-fastclick"/}
+  <!-- AdminLTE App -->
+  {include file="common@include:js-adminlte"/}
+  <!-- Sparkline -->
+  {include file="common@include:js-jquery-sparkline"/}
+  <!-- ChartJS -->
+  {include file="common@include:js-chartjs"/}
+  <!-- adminlte.rightbar.js -->
+  {include file="common@include:js-adminlte-rightbar"/}
+  <!-- layer mobile -->
+  {include file="common@include:js-layer-mobile"/}
+  <!-- common -->
+  {include file="common@include:js-common"/}
+  <!-- script -->
+  {block name="script"}
+
+  {/block}
+</body>
+</html>
