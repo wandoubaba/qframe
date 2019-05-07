@@ -7,7 +7,6 @@ class Index extends Base
 {
     public function index()
     {
-    	$this->view->assign('pagetitle','首页');
         return $this->view->fetch();
     }
 
