@@ -1,13 +1,16 @@
 {extend name='common@template:index'/}
 
+{block name="bread-nav"}
+	
+{/block}
 
 {block name="main-title"}
-{$pagetitle|default=""}
-<small></small>
+	{$pagetitle|default=""}
+	<small></small>
 {/block}
 
 {block name="main-content"}
-  <a class="btn btn-default btn-block btn-lg" href="{:url('index/index/chart')}">chart.js演示</a>
+	<a class="btn btn-default btn-block btn-lg" href="{:url('index/index/chart')}">chart.js演示</a>
 {/block}
 
 {block name="script"}
