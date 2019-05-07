@@ -11,8 +11,8 @@ class Base extends Controller
 	{
 		// 继承父类的_initialize()方法
 		parent::_initialize();
-		$this->view->assign('title','qThink');
-        $this->view->assign('minititle','qT');
+		$this->view->assign('title','qFrame');
+        $this->view->assign('minititle','qF');
 	}
 
 	/**

@@ -9,4 +9,10 @@ class Index extends Base
     {
         return $this->view->fetch();
     }
+
+    public function chart()
+    {
+    	$this->view->assign('pagetitle','chart.js演示');
+    	return $this->view->fetch();
+    }
 }
