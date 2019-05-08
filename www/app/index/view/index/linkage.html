@@ -1,0 +1,36 @@
+{extend name='common@template:adminlte_index'/}
+
+{block name="bread-nav"}
+
+{/block}
+
+{block name="main-title"}
+{$pagetitle|default=""}
+<small></small>
+{/block}
+
+{block name="main-content"}
+<div id="container"></div>
+{/block}
+
+{block name="script"}
+{include file="common@include:js-jquery-wandoubaba-linkage"/}
+<script type="text/javascript">
+	$("#container").linkage({
+    	url: "{:url('api/district/ajaxget_district_by_fid')}",	// 请求路径
+    	default_values: [],	// 初始ID值
+    	root_father: "0",	// 最高级的父ID
+    	father_keyname: "fid",	// 查询时父ID参数对应的键名，默认为father_id
+    	level: -1,	// 加载级别，小于等0表示加载到底
+    	select_css: "form-control",	// 样式名称，默认为bootstrap的form-control
+    	container_css: "form-inline",	// 容器样式名称，默认为bootstrap的form-inline
+    	value_key: "district_id",	// <option value="id">name</option>
+    	text_key: "district_name",
+    	span_css: "",	// 如果要在select外层包一层span则定义span的css样式名称，如h-ui的span_css: "select-box"
+    });
+</script>
+{/block}
+
+{block name="css"}
+
+{/block}
