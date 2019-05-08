@@ -1,9 +1,9 @@
-{extend name='common@template:adminlte_blank'/}
+{extend name='admin@frame/template/adminlte_blank'/}
 
 {block name="body"}
 <div class="login-box">
 	<div class="login-logo">
-		<a href="{:url('index/index/index')}"><b>qF</b>rame</a>
+		<a href="{:url('admin/index/index')}"><b>qF</b>rame</a>
 	</div>
 	<!-- /.login-logo -->
 	<div class="login-box-body">
@@ -55,12 +55,12 @@
 {/block}
 
 {block name="css"}
-{include file="common@include:css-icheck"/}
+{include file="admin@frame/include/css-icheck"/}
 {/block}
 
 {block name="script"}
-{include file="common@include:js-icheck"/}
-{include file="common@include:js-jquery-validation"/}
+{include file="admin@frame/include/js-icheck"/}
+{include file="admin@frame/include/js-jquery-validation"/}
 <script type="text/javascript">
 $(function () {
   	/**

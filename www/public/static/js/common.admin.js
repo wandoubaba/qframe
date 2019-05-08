@@ -1,4 +1,4 @@
-/* 项目自定义js */
+/* 项目自定义admin模块下通用js */
 
 // iframe高度自适应
 function iframe_height_fix(iframe_obj, plus) {

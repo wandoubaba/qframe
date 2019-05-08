@@ -1,4 +1,4 @@
-{extend name='common@template:adminlte_index'/}
+{extend name='frame/template/adminlte_index'/}
 
 {block name="bread-nav"}
 
@@ -14,7 +14,7 @@
 {/block}
 
 {block name="script"}
-{include file="common@include:js-jquery-wandoubaba-linkage"/}
+{include file="frame/include/js-jquery-wandoubaba-linkage"/}
 <script type="text/javascript">
 	$("#container").linkage({
     	url: "{:url('api/district/ajaxget_district_by_fid')}",	// 请求路径

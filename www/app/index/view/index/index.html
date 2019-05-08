@@ -1,24 +1,16 @@
-{extend name='common@template:adminlte_index'/}
-
-{block name="bread-nav"}
-	
-{/block}
-
-{block name="main-title"}
-	{$pagetitle|default=""}
-	<small></small>
-{/block}
-
-{block name="main-content"}
-	<a class="btn btn-default btn-block btn-lg" href="{:url('index/index/chart')}"><i class="fa fa-bar-chart fa-fw"></i> chart.js演示</a>
-	<a class="btn btn-default btn-block btn-lg" href="{:url('index/index/linkage')}"><i class="fa fa-th-list fa-fw"></i> 无限联动演示</a>
-	<a class="btn btn-default btn-block btn-lg" href="{:url('admin/login/index')}"><i class="fa fa-address-card-o fa-fw"></i> 登录页演示</a>
-{/block}
-
-{block name="script"}
-
-{/block}
-
-{block name="css"}
-
-{/block}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>hello</title>
+	{include file="common@frame/include/css-icons"/}
+	{include file="common@frame/include/css-fonts"/}
+</head>
+<body>
+	<h1>您好 <i class="icon ion-heart"></i></h1>
+	<hr/>
+	<i class="fa fa-home"> <a href="{:url('admin/login/index')}">进后台</a>
+</body>
+</html>
