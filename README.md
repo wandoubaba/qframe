@@ -1,8 +1,8 @@
 # qFrame
-一个结合了前后端框架的综合框架，可以直接用于开发
+一个结合了前/后端框架的综合框架，可以直接用于开发
 --------
 php框架为thinkphp，  
-admin模块基于adminlte开发，样式框架为Bootstrap，JS框架为JQuery，同时引入了很多前端组件。  
+admin模块基于adminlte开发，样式框架为Bootstrap，JS框架为JQuery，同时引入了众多前端组件。  
 index模块准备应用framework7框架，正在学习中……  
 --------
 开发中……  
