@@ -7,6 +7,6 @@ class Index extends Base
 {
     public function index()
     {
-    	return $this->view->fetch();
+    	return $this->view->fetch('sample/index');
     }
 }

@@ -7,6 +7,6 @@ class Login extends Base
 {
     public function index()
     {
-        return $this->view->fetch();
+        return $this->view->fetch('index/login');
     }
 }
