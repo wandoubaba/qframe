@@ -1,16 +1,104 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>hello</title>
-	{include file="common@frame/include/css-icons"/}
-	{include file="common@frame/include/css-fonts"/}
-</head>
-<body>
-	<h1>您好 <i class="icon ion-heart"></i></h1>
-	<hr/>
-	<i class="fa fa-home"> <a href="{:url('/admin/login')}">进后台</a>
-</body>
-</html>
+{extend name='index@frame/template:framework7-vue-blank'/}
+{block name="title"}
+Hybrid应用示例
+{/block}
+{block name="body"}
+<div id="app">
+	<f7-app :params="f7params">
+		<f7-statusbar></f7-statusbar>
+		<f7-panel left reveal theme-dark>
+			<f7-view>
+				<f7-page>
+					<f7-navbar title="左面板">
+						<f7-button panel-close>关闭</f7-button>
+					</f7-navbar>
+					<f7-block>
+						<p>左面板内容</p>
+						<f7-link href="{:url('admin/index/index')}" class="external">进后台</f7-link>
+					</f7-block>
+				</f7-page>
+			</f7-view>
+		</f7-panel>
+
+		<f7-panel right cover theme-dark>
+			<f7-view>
+				<f7-page>
+					<f7-navbar title="右面板">
+						<f7-button panel-close>关闭</f7-button>
+					</f7-navbar>
+					<f7-block>
+						<p>右面板的内容</p>
+					</f7-block>
+				</f7-page>
+			</f7-view>
+		</f7-panel>
+
+		<f7-view main>
+			<f7-page>
+				<f7-navbar title="Hybrid应用示例"></f7-navbar>
+				<f7-block>
+					<p>页面内容写在这里</p>
+					<f7-link href="about/">关于</f7-link>
+				</f7-block>
+				<f7-toolbar bottom>
+					<f7-col>
+						<f7-button panel-open="left">左面板</f7-button>
+					</f7-col>
+					<f7-col>
+						<f7-button color="orange" popup-open="#my-popup">弹出</f7-button>
+					</f7-col>
+					<f7-col>
+						<f7-button panel-open="right">右面板</f7-button>
+					</f7-col>
+				</f7-toolbar>
+			</f7-page>
+		</f7-view>
+
+		<f7-popup id="my-popup" :opened="popupOpened" @popup:closed="popupOpened=false">
+			<f7-page color-theme="orange">
+				<f7-navbar title="弹出层">
+					<f7-nav-right>
+						<f7-link popup-close>关闭</f7-link>
+					</f7-nav-right>
+				</f7-navbar>
+				<f7-block>
+					<p :class="{'text-color-red':isRed}">Here comes popup. You can put here anything, even independent view with its own navigation. Also not, that by default popup looks a bit different on iPhone/iPod and iPad, on iPhone it is fullscreen.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+					<p>Duis ut mauris sollicitudin, venenatis nisi sed, luctus ligula...</p>
+				</f7-block>
+			</f7-page>
+		</f7-popup>
+	</f7-app>
+</div>
+{/block}
+
+{block name="css"}
+
+{/block}
+
+{block name="js"}
+<script type="text/javascript">
+	Framework7.use(Framework7Vue);
+	var routes = [
+		
+	];
+
+	var vm = new Vue({
+		el: '#app',
+		data() {
+			return {
+				popupOpened: false,
+				f7params: {
+					routes: routes,
+					// name: 'My App',
+					// id: 'com.myapp.test',
+				},
+				isRed:true,
+			};
+		},
+		methods: {
+
+		}
+	});
+</script>
+{/block}

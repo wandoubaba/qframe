@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#2196f3">
+	<title>
+	{block name="title"}
+	
+	{/block}
+	</title>
+	{include file="index@frame/include:css-framework7"/}
+	{include file="index@frame/include:css-common-index"/}
+	{block name="css"}
+
+	{/block}
+</head>
+<body>
+	{block name="body"}
+
+	{/block}
+	{include file="index@frame/include:js-vue"/}
+	{include file="index@frame/include:js-framework7"/}
+	{include file="index@frame/include:js-framework7-vue"/}
+	{include file="index@frame/include:js-common-index"/}
+	{block name="js"}
+	
+	{/block}
+</body>
+</html>
