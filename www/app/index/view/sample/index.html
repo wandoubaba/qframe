@@ -38,6 +38,7 @@ Hybrid应用示例
 				<f7-navbar title="Hybrid应用示例"></f7-navbar>
 				<f7-block>
 					<p>页面内容写在这里</p>
+					<p>{{ useragent }}</p>
 					<f7-link href="about/">关于</f7-link>
 				</f7-block>
 				<f7-toolbar bottom>
@@ -94,6 +95,7 @@ Hybrid应用示例
 					// id: 'com.myapp.test',
 				},
 				isRed:true,
+				useragent: navigator.userAgent,
 			};
 		},
 		methods: {
