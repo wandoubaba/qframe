@@ -1,11 +1,11 @@
 <?php
 namespace app\api\controller;
 
-use think\Controller;
+use app\api\controller\Base as ApiBase;
 use think\captcha\Captcha as ThinkCaptcha;
 use app\common\model\Res;
 
-class Captcha extends Controller
+class Captcha extends ApiBase
 {
 	/**
 	 * 生成验证码图片

@@ -1,10 +1,10 @@
 <?php
 namespace app\api\controller;
 
-use think\Controller;
+use app\api\controller\Base as ApiBase;
 use app\common\controller\DistrictService;
 
-class District extends Controller
+class District extends ApiBase
 {
 	public function ajaxget_district_by_fid($fid=86)
 	{

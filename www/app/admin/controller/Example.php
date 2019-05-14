@@ -1,9 +1,9 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\controller\Base;
+use app\admin\controller\Base as AdminBase;
 
-class Example extends Base
+class Example extends AdminBase
 {
     public function chart()
     {

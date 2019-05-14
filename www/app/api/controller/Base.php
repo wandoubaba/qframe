@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\controller;
+namespace app\api\controller;
 
 use app\common\controller\Base as CommonBase;
 
@@ -9,7 +9,5 @@ class Base extends CommonBase
     {
         // 继承父类的_initialize()方法
         parent::_initialize();
-        $this->view->assign('title','qFrame');
-        $this->view->assign('minititle','qF');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 namespace app\common\controller;
 
-use think\Controller;
+use app\common\controller\Base as CommonBase;
 use app\common\model\District;
 
-class DistrictService extends Controller
+class DistrictService extends CommonBase
 {
 	/**
      * 根据father_id查询对应的地区数据
