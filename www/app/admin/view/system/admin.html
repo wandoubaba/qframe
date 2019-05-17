@@ -1,0 +1,106 @@
+{extend name='admin@frame/template:adminlte_index'/}
+
+{block name="bread-nav"}
+	
+{/block}
+
+{block name="main-title"}
+	{$pagetitle|default=""}
+	<small></small>
+{/block}
+
+{block name="main-content"}
+<div class="alert alert-warning alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<i class="icon fa fa-bell"></i> 提示：在电脑上操作会更舒服一些。
+</div>
+<div class="box">
+	<div class="box-header">
+		<span> 
+			<a href="javascript:;" onclick="item_multidelete('{:url("admin/admin/do_admin_multidelete")}','to_multidelete[]')" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i> 批量删除</a> 
+			<a href="javascript:;" onclick="modal_show_iframe('添加管理员','{:url("admin/admin/add")}','')" class="btn btn-primary"><i class="fa fa-fw fa-plus-square"></i> 新增数据</a> 
+		</span>
+		<span class="pull-right">共有数据：<strong>{$count}</strong> 条</span>
+	</div>
+	<div class="box-body" style="overflow:scroll;">
+		<table class="table table-bordered table-strited table-hover text-nowrap">
+			<thead>
+				<tr>
+					<th scope="col" colspan="15">管理员清单</th>
+				</tr>
+				<tr>
+					<th><input type="checkbox" name="" value=""></th>
+					<th>操作</th>
+					<th>ID</th>
+					<th>姓名</th>
+					<th>账号</th>
+					<th>邮箱</th>
+					<th>电话</th>
+					<th>描述</th>
+					<th>角色</th>
+					<th>状态</th>
+					<th>登录IP</th>
+					<th>登录时间</th>
+					<th>登录次数</th>
+					<th>创建时间</th>
+					<th>修改时间</th>
+				</tr>
+			</thead>
+			<tbody>
+			{volist name='list' id='vo'}
+				<tr class="{if condition='$vo.admin_super neq 0 OR $vo.admin_account eq "admin"'} warning {/if}" title="{$vo.admin_description}">
+					<td><input type="checkbox" value="{$vo.admin_id}" name="to_multidelete[]"></td>
+					<td class="td-manage">
+					{if condition="$vo.admin_status eq '正常'"}
+						<a title="禁用" href="javascript:;" onclick="ajax_post_confirm('{:url("admin/admin/do_admin_status")}',{id:'{$vo.admin_id}'},'{$vo.admin_name}','禁用');"><i class="fa fa-fw fa-eye-slash"></i></a>
+					{else /}
+						<a title="启用" href="javascript:;" onclick="ajax_post_confirm('{:url("admin/admin/do_admin_status")}',{id:'{$vo.admin_id}'},'{$vo.admin_name}','启用');"><i class="fa fa-fw fa-eye"></i></a>
+					{/if}
+						<a title="编辑" href="javascript:;" onclick="modal_show_iframe('编辑管理员','{:url("admin/admin/edit",["id"=>$vo.admin_id])}','')"><i class="fa fa-fw fa-pencil-square-o"></i></a> 
+						{if condition="$vo.admin_account neq 'admin' and $vo.admin_super eq 0"}
+						<a title="改密码" href="javascript:;" onclick="modal_show_iframe('修改密码','{:url("admin/admin/password",["id"=>$vo.admin_id])}','')"><i class="fa fa-fw fa-key"></i></a>
+						{/if}
+						<a title="删除" href="javascript:;" onclick="ajax_post_confirm('{:url("admin/admin/do_admin_delete")}',{id:'{$vo.admin_id}'},'{$vo.admin_name}','删除');"><i class="fa fa-fw fa-trash-o"></i></a>
+					</td><td>{$vo.admin_id}</td>
+					<td>{$vo.admin_name}</td>
+					<td>
+						<span class="name">{$vo.admin_account}</span>
+					</td>
+					<td>{$vo.admin_email}</td>
+					<td>{$vo.admin_telephone}</td>
+					<td>{$vo.admin_description}</td>
+					<td>{$vo.role.role_name}</td>
+					<td>
+						{if condition="$vo.admin_status eq '正常'"}
+							<span class="label label-success">
+								{$vo.admin_status}
+							</span>
+						{else /}
+							<span class="label label-default">
+								{$vo.admin_status}
+							</span>
+						{/if}
+					</td>
+					<td>{$vo.admin_login_ip}</td>
+					<td>{$vo.admin_login_time}</td>
+					<td>{$vo.admin_login_count}</td>
+					<td>{$vo.create_time}</td>
+					<td>{$vo.update_time}</td>
+				</tr>
+			{/volist}
+			</tbody>
+		</table>
+	</div>
+	<div class="box-footer">
+		<div class="text-warning text-center">在电脑上操作会更舒服一些。</div>
+	</div>
+</div>
+{/block}
+
+{block name="js"}
+
+{/block}
+
+{block name="css"}
+
+{/block}

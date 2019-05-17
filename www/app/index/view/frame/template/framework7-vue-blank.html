@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<!-- Color theme for statusbar -->
-    <meta name="theme-color" content="#2196f3">
+	{include file="index@frame/include:meta-mobile"/}
 	<title>
 	{block name="title"}
 	
 	{/block}
 	</title>
+	<!-- framework7样式文件 -->
 	{include file="index@frame/include:css-framework7"/}
+	<!-- 公共图标样式文件 -->
+	{include file="common@frame/include:css-icons"/}
+	<!-- index模块通用自自定义样式文件 -->
 	{include file="index@frame/include:css-common-index"/}
+	<!-- 页面自定义样式表 -->
 	{block name="css"}
 
 	{/block}
+	<!-- 页面完全加载前显示“loading” -->
+	{include file="common@frame/include:js-loading-in-head"/}
 </head>
 <body>
 	{block name="body"}
@@ -29,5 +31,7 @@
 	{block name="js"}
 	
 	{/block}
+	<!-- 统计脚本 -->
+	{$tongji|default=''}
 </body>
 </html>

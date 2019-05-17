@@ -1,0 +1,115 @@
+{extend name="admin@frame/template:bootstrap_frame"/}
+{block name="body"}
+<form method="post" class="form-horizontal">
+	<div class="form-group">
+		<label class="control-label col-sm-3"><span class="text-red">*</span>菜单名称</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="菜单名称" id="menu_name" name="menu_name" minlength="2" maxlength="20" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">完整路由</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="举例：admin/index/index" id="menu_route" name="menu_route" minlength="2" maxlength="50">
+		</div>
+	</div>
+	<div class="form-group">
+		<lable class="control-label col-sm-3">上级菜单</lable>
+		<div class="col-sm-9">
+			<select class="form-control" size="1" id="menu_father_id" name="menu_father_id">
+				<option value="0" selected>无</option>
+				{volist name='list' id='vo'}
+				<option value="{$vo.menu_id}" {if condition="$vo.menu_id eq $fid"} selected="selected" {/if}>
+				ID:{$vo.menu_id} - {$vo.menu_name}（{$vo.menu_visible},{$vo.menu_description}）
+				</option>
+				{/volist}
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">菜单排序</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="整数从小到大，默认0" id="menu_sn" name="menu_sn" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">菜单可见</label>
+		<div class="col-sm-9">
+			<label>
+				<input type="checkbox" id="menu_visible" name="menu_visible" checked="true" />
+				勾选可见
+			</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">功能描述</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="简单描述菜单的功能" id="menu_description" name="menu_description">
+		</div>
+	</div>		
+	<div class="form-group">
+		<lable class="control-label col-sm-3">菜单角色</lable>
+		<div class="col-sm-9">
+			<label>
+				<input type="checkbox" id="checkall" />
+				<strong>全选</strong>
+			</label>
+			<div class="panel panel-default">
+				<div class="panel-body">
+		    	{volist name='role_list' id='vo_r'}
+			    	<div class="col-xs-6 col-sm-4">
+			    		<label title="{$vo_r.role_description}">
+			    			<input type="checkbox" name="role_id[]" value="{$vo_r.role_id}" />
+			    			{$vo_r.role_name}
+			    		</label>
+			    	</div>
+		    	{/volist}
+		    	</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-9 col-sm-offset-3">
+			<button type="submit" class="btn btn-success disabled" disabled="true">提交数据</button>
+		</div>
+	</div>
+</form>
+{/block}
+
+{block name="js"}
+{include file="admin@frame/include:js-jquery-validation"/}
+<script type="text/javascript">
+	$(function() {
+		// 初始化checkbox的icheck样式
+		$('input[type="checkbox"]').iCheck({
+			checkboxClass: 'icheckbox_minimal-blue',
+			radioClass   : 'iradio_minimal-blue'
+	    })
+		// 实现菜单全选
+		$("#checkall:checkbox").on("ifChecked ifUnchecked",function(event) {
+			$(this).parents(".form-group").find(".panel input:checkbox").iCheck(event.type=='ifChecked' ? 'check' : 'uncheck');
+		});
+
+		// 只有当表单中有数据变化时，提交按钮才可用
+		$("form").children().bind('input propertychange ifChecked ifUnchecked',function() {
+			$(":submit").removeClass('disabled').removeAttr('disabled');
+		});
+
+		$("form").validate({
+			rules: {
+				menu_sn: {
+			      number: true
+			    }
+			},
+			submitHandler: function(form) {
+				// 当验证通过时执行ajax提交
+				ajax_post("{:url('admin/menu/do_menu_add')}",$("form").serialize());
+			}
+		});
+	});
+</script>
+{/block}
+
+{block name="css"}
+
+{/block}

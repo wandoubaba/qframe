@@ -1,0 +1,112 @@
+{extend name='admin@frame/template:adminlte_index'/}
+
+{block name="bread-nav"}
+	
+{/block}
+
+{block name="main-title"}
+	{$pagetitle|default=""}
+	<small></small>
+{/block}
+
+{block name="main-content"}
+<div class="box">
+	<div class="box-body">
+		<form class="form">
+		<table class="table table-striped table-bordered table-hover text-nowrap">
+			<thead>
+				<tr>
+					<th>名称（只读）</th>
+					<th>键（只读）</th>
+					<th>值</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody class="list">
+				{volist name='list' id='vo'}
+					<tr>
+						<th>
+							<input class="form-control name" type="text" value="{$vo.config_name}" name="config_name" readonly="true" required/>
+						</th>
+						<td>
+							<input class="form-control" type="text" value="{$vo.config_key}" name="config_key" readonly="true" required/>
+						</td>
+						<td>
+							<textarea name="config_value" class="form-control" rows="3" maxlength="4000">{$vo.config_value}</textarea>
+						</td>
+						<td>
+							<div><button name="button-save" type="button" onclick="config_edit(this,'{:url("admin/config/do_config_edit")}')" class="btn btn-success disabled" disabled="true">保存</button></div>
+							{if condition="$vo.config_deletable eq 1"}
+							<div class="mt-1"><button type="button" class="btn btn-danger" onclick="ajax_post_confirm('{:url("admin/config/do_config_delete")}',{key:'{$vo.config_key}'},'{$vo.config_name}','删除');">删除</button></div>
+							{/if}
+						</td>
+					</tr>
+				{/volist}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="4">添加新配置项</th>
+				</tr>
+				<tr>
+					<th><input class="form-control" type="text" name="config_name" placeholder="配置项的名称" required rangelength="[2,20]"/></th>
+					<th><input class="form-control" type="text" name="config_key" placeholder="配置项的系统键名" required rangelength="[2,20]"/></th>
+						
+					<th><textarea name="config_value" class="form-control" rows="3" maxlength="4000" placeholder="配置项的值（支持html、css和js）"></textarea></th>
+					<th>
+						<button type="button" name="button-save" class="btn btn-warning disabled" disabled="true" onclick="config_add(this,'{:url("admin/config/do_config_add")}')">新增</button>
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+		</form>
+	</div>
+	<div class="box-footer">
+		<div class="text-warning text-center">如果显示太拥挤，请试试横屏或在电脑上操作。</div>
+	</div>
+</div>
+{/block}
+
+{block name="js"}
+<script type="text/javascript">
+$(function() {
+	// 只有当本行数据变化时，提交按钮才可用
+	$("tbody.list,tfoot").children().bind('input propertychange', function() {
+		// 这个$(this)指的是$("tbody.list").child()，在本页是发生变化的tr
+		$(this).find("[name='button-save']").removeClass("disabled").removeAttr("disabled");
+	});
+});
+
+// 修改
+function config_edit(obj, url) {
+	// 为了友好，取到要操作模块的“菜单名称”字段，要在提示语中使用
+	var name = $(obj).parents("tr").find(".name").val();
+	// 用layer.confirm插件进行操作确认
+	layer.confirm("确认要保存对“"+name+"”的更改吗？", function() {
+		var name = $(obj).parents("tr").find("[name='config_name']").val();
+		var key = $(obj).parents("tr").find("[name='config_key']").val();
+		var value = $(obj).parents("tr").find("[name='config_value']").val();
+		ajax_post(url, {
+	        	config_name : name,
+	        	config_key : key,
+	        	config_value : value
+	        });
+	});
+}
+
+// 新增
+function config_add(obj, url) {
+	var name = $(obj).parents("tr").find("[name='config_name']").val();
+	var key = $(obj).parents("tr").find("[name='config_key']").val();
+	var value = $(obj).parents("tr").find("[name='config_value']").val();
+	ajax_post(url, {
+        	config_name : name,
+        	config_key : key,
+        	config_value : value
+        });
+}
+</script>
+{/block}
+
+{block name="css"}
+
+{/block}

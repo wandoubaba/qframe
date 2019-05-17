@@ -1,0 +1,117 @@
+{extend name="admin@frame/template:bootstrap_frame"/}
+{block name="body"}
+<form method="post" class="form-horizontal">
+	<div class="form-group">
+		<label class="control-label col-sm-3"><span class="text-red">*</span>角色名称</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="角色名称" id="role_name" name="role_name" minlength="2" maxlength="20" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">角色描述</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="简单描述角色" id="role_description" name="role_description">
+		</div>
+	</div>
+	<div class="form-group">
+		<lable class="control-label col-sm-3">角色权限</lable>
+		<div class="col-sm-9">
+			<label>
+				<input type="checkbox" id="checkall" />
+				<strong>全选</strong>
+			</label>
+		    {volist name='list' id='vo'}
+				<div class="panel panel-info">
+			    	<div class="col-xs-12 panel-heading">
+			    		<label title="{$vo.menu_description}">
+			    			<input type="checkbox" name="menu_id[]" value="{$vo.menu_id}" />
+			    			{$vo.menu_name}
+			    			{if condition="$vo.menu_visible eq '显示'"}
+			    				<span class="label label-success radius">{$vo.menu_visible}</span>
+			    			{/if}
+			    		</label>
+			    		<label class="pull-right text-red">
+			    			<input type="checkbox" name="checkpanel" />
+			    			<strong>全选组</strong>
+			    		</label>
+			    	</div>
+			    	<div class="panel-body">
+						{volist name='vo.menu_child' id='vo_c'}
+							<div class="col-xs-12 col-sm-4">
+								<label title="{$vo_c.menu_description}">
+									<input type="checkbox" name="menu_id[]" value="{$vo_c.menu_id}" />
+									{$vo_c.menu_name}{if condition="$vo_c.menu_visible eq '显示'"}
+										<span class="label label-success radius">{$vo_c.menu_visible}</span>
+									{/if}
+								</label>
+							</div>
+						{/volist}
+			    	</div>
+				</div>
+		    {/volist}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-9 col-sm-offset-3">
+			<button type="submit" class="btn btn-success disabled" disabled="true">提交数据</button>
+		</div>
+	</div>
+</form>
+{/block}
+
+{block name="js"}
+{include file="admin@frame/include:js-jquery-validation"/}
+<script type="text/javascript">
+	$(function() {
+		// 初始化checkbox的icheck样式
+		$('input[type="checkbox"]').iCheck({
+			checkboxClass: 'icheckbox_minimal-blue',
+			radioClass   : 'iradio_minimal-blue'
+	    })
+		// 实现菜单全选
+		$("#checkall:checkbox").on("ifChecked ifUnchecked",function(event) {
+			$(this).parents(".form-group").find(".panel input:checkbox").iCheck(event.type=='ifChecked' ? 'check' : 'uncheck');
+		});
+		// 实现单面板全选
+		$(".panel-heading input:checkbox[name='checkpanel']").on("ifChecked ifUnchecked",function(event) {
+			$(this).parents(".panel").find(".panel-body input:checkbox").iCheck(event.type=='ifChecked' ? 'check' : 'uncheck');
+		});
+		// 选子项时父项必选，子项全未选时父项也不选
+		$(".panel-body input:checkbox").on("ifChecked ifUnchecked",function(event) {
+			if(event.type=='ifChecked') {
+				$(this).parents(".panel").find(".panel-heading input:checkbox:not([name='checkpanel'])").iCheck('check');
+			} else {
+				checkedattr = false;
+				$(this).parents(".panel-body").find("input:checkbox").each(function() {
+					if($(this).is(':checked')) {
+						checkedattr = true;
+						return false;
+					}
+				});
+				if(!checkedattr) {
+					$(this).parents(".panel").find(".panel-heading input:checkbox:not([name='checkpanel'])").iCheck('uncheck');
+				}
+			}
+		});
+
+		// 只有当表单中有数据变化时，提交按钮才可用
+		$("form").children().bind('input propertychange ifChecked ifUnchecked',function() {
+			$(":submit").removeClass('disabled').removeAttr('disabled');
+		});
+
+		$("form").validate({
+			rules: {
+				
+			},
+			submitHandler: function(form) {
+				// 当验证通过时执行ajax提交
+				ajax_post("{:url('admin/role/do_role_add')}",$("form").serialize());
+			}
+		});
+	});
+</script>
+{/block}
+
+{block name="css"}
+
+{/block}

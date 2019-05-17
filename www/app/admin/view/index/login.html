@@ -3,28 +3,28 @@
 {block name="body"}
 <div class="login-box">
 	<div class="login-logo">
-		<a href="{:url('admin/index/index')}"><b>qF</b>rame</a>
+		<a href="{:url('admin/index/index')}">{$title}</a>
 	</div>
 	<!-- /.login-logo -->
 	<div class="login-box-body">
 		<p class="login-box-msg">登录以获取操作权限</p>
 		<form id="login_form" method="post" class="form-horizontal" action="">
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user_account"><i class="fa fa-user fa-fw"></i> 用户名</label>
+				<label class="col-sm-4 control-label" for="admin_account"><i class="fa fa-user fa-fw"></i> 用户名</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="user_account" name="user_account" placeholder="用户名" rangelength="[4,32]" required />
+					<input type="text" class="form-control" id="admin_account" name="admin_account" placeholder="用户名" rangelength="[4,32]" required />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user_password"><i class="fa fa-lock fa-fw"></i> 密码</label>
+				<label class="col-sm-4 control-label" for="admin_password"><i class="fa fa-lock fa-fw"></i> 密码</label>
 				<div class="col-sm-8">
-					<input type="password" class="form-control" id="user_password" name="user_password" placeholder="密码" rangelength="[4,64]" required />
+					<input type="password" class="form-control" id="ad" name="admin_password" placeholder="密码" rangelength="[4,64]" required />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="user_password"><i class="fa fa-image fa-fw"></i> 验证码</label>
+				<label class="col-sm-4 control-label" for="admin_password"><i class="fa fa-image fa-fw"></i> 验证码</label>
 				<div class="col-sm-8">
-					<input type="password" class="form-control" id="captcha" name="captcha" placeholder="验证码" minlength="4" maxlength="4" required />
+					<input type="text" class="form-control" id="captcha" name="captcha" placeholder="验证码" minlength="4" maxlength="4" required />
 				</div>
 				<div class="col-sm-8 col-sm-offset-4">
 					<img id="captcha_img" src="{:url('api/captcha/get_captcha_image',['fontsize'=>'25','length'=>'4'])}">
@@ -47,10 +47,10 @@
 <!-- /.login-box -->
 <footer class="page-footer">
 	<div class="pull-right hidden-xs">
-		<b>Version</b> 1.0.0
+		<b>Version</b> {$version}
 	</div>
-	<strong>Copyright &copy; <a href="{:url('/index')}">兮恩科技</a> 2019 .</strong> All rights
-	reserved.
+	{$footer}<br/>
+	{$beian}
 </footer>
 {/block}
 
@@ -58,7 +58,7 @@
 {include file="admin@frame/include/css-icheck"/}
 {/block}
 
-{block name="script"}
+{block name="js"}
 {include file="admin@frame/include/js-icheck"/}
 {include file="admin@frame/include/js-jquery-validation"/}
 <script type="text/javascript">
@@ -117,70 +117,37 @@ $(function () {
 	 */
 	 $( "#login_form" ).validate({
 	 	rules: {
-	 		user_account: "isRightfulString",
-	 		user_password: "isRightfulString",
+	 		admin_account: "isRightfulString",
+	 		admin_password: "isRightfulString",
 
 	 	},
 	 	messages: {
 
 	 	},
-	 	// 配合bootstrap3样式的验证代码
-	 	errorElement: "em",
-	 	errorPlacement: function ( error, element ) {
-			// Add the `help-block` class to the error element
-			error.addClass( "help-block" );
-			// Add `has-feedback` class to the parent div.form-group
-			// in order to add icons to inputs
-			element.parents( ".form-group" ).addClass( "has-feedback" );
-			if ( element.prop( "type" ) === "checkbox" ) {
-				error.insertAfter( element.parent( "label" ) );
-			} else {
-				error.insertAfter( element );
-			}
-			// Add the span element, if doesn't exists, and apply the icon classes to it.
-			if ( !element.next( "span" )[ 0 ] ) {
-				$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
-			}
-		},
-		success: function ( label, element ) {
-			// Add the span element, if doesn't exists, and apply the icon classes to it.
-			if ( !$( element ).next( "span" )[ 0 ] ) {
-				$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
-			}
-		},
-		highlight: function ( element, errorClass, validClass ) {
-			$( element ).parents( ".form-group" ).addClass( "has-error" ).removeClass( "has-success" );
-			$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
-		},
-		unhighlight: function ( element, errorClass, validClass ) {
-			$( element ).parents( ".form-group" ).addClass( "has-success" ).removeClass( "has-error" );
-			$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
-		},
-		// end 配合bootstrap3样式的验证代码
 		submitHandler: function(form) {
-			alert('验证通过');
+			// alert('验证通过');
 			// 当验证通过时执行ajax提交
-			// $.ajax({
-			// 	type: "POST", // POST方法提交
-			// 	url: "{:url('admin/login/do_login')}", // 执行的方法
-			// 	data: $("form").serialize(),  // 将表单控件的name属性序列化后提交
-			// 	dataType: "json", // 数据类型为json
-			// 	success: function(data) {
-			// 		// 当ajax请求执行成功时执行
-			// 		if (data.status == true) {
-			// 			// 返回data对象中的status元素值为1表示数据插入成功
-			// 			layer.msg(data.message, {icon: 6, time: 1000}); // 使用H-ui的浮动提示框，2秒后自动消失
-			// 			setTimeout(function() {
-			// 				parent.location.href = "{:url('admin/home/index')}";
-			// 			}, 1300); //2秒后对父页面执行刷新（相当于关闭了弹层同时更新了数据）
-			// 		} else {
-			// 			// 返回data对象的status值不为1，表示数据插入失败
-			// 			layer.msg(data.message, {icon: 5, time: 1000}); // 使用H-ui的浮动提示框，2秒后自动消失
-			// 			refreshCaptcha(); // 重置一下验证码
-			// 			// 页面停留在这里，不再执行任何动作
-			// 		}
-			// 	}
-			// });
+			$.ajax({
+				type: "POST", // POST方法提交
+				url: "{:url('admin/login/do_login')}", // 执行的方法
+				data: $("form").serialize(),  // 将表单控件的name属性序列化后提交
+				dataType: "json", // 数据类型为json
+				success: function(data) {
+					// 当ajax请求执行成功时执行
+					if (data.status == true) {
+						// 返回data对象中的status元素值为1表示数据插入成功
+						layer.msg(data.message, {icon: 6, time: 1000}); // 使用H-ui的浮动提示框，2秒后自动消失
+						setTimeout(function() {
+							parent.location.href = "{:url('/admin')}";
+						}, 1300); //2秒后对父页面执行刷新（相当于关闭了弹层同时更新了数据）
+					} else {
+						// 返回data对象的status值不为1，表示数据插入失败
+						layer.msg(data.message, {icon: 5, time: 1000}); // 使用H-ui的浮动提示框，2秒后自动消失
+						refreshCaptcha(); // 重置一下验证码
+						// 页面停留在这里，不再执行任何动作
+					}
+				}
+			});
 		}
 	});
 });

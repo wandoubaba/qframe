@@ -7,10 +7,14 @@
 	{include file="admin@frame/include:seo"/}
 	<!-- bootstrap3 css -->
 	{include file="admin@frame/include:css-bootstrap3"/}
-	<!-- admin lite css -->
-	{include file="admin@frame/include:css-adminlte"/}
 	<!-- bootstrap4's margin set -->
 	{include file="admin@frame/include:css-bootstrap3-marginset-from4"/}
+	<!-- bootstrap-switch -->
+	{include file="admin@frame/include:css-bootstrap3-switch"/}
+	<!-- bootstrap-datetimepicker -->
+	{include file="admin@frame/include:css-bootstrap3-datetimepicker"/}
+	<!-- admin lite css -->
+	{include file="admin@frame/include:css-adminlte"/}
 	<!-- browser compatibility -->
 	{include file="admin@frame/include:compatibility"/}
 	<!-- icheck -->
@@ -25,6 +29,8 @@
 	{block name="css"}
 	
 	{/block}
+	<!-- 页面完全加载前显示“loading” -->
+	{include file="common@frame/include:js-loading-in-head"/}
 </head>
 <body>
 	{block name="body"}
@@ -34,6 +40,10 @@
 	{include file="admin@frame/include:js-jquery"/}
 	<!-- Bootstrap 3.4.1 -->
 	{include file="admin@frame/include:js-bootstrap3"/}
+	<!-- Bootstrap-switch -->
+	{include file="admin@frame/include:js-bootstrap3-switch"/}
+	<!-- bootstrap-datetimepicker -->
+	{include file="admin@frame/include:js-bootstrap3-datetimepicker"/}
 	<!-- FastClick -->
 	{include file="admin@frame/include:js-fastclick"/}
 	<!-- AdminLTE App -->
@@ -41,14 +51,18 @@
 	<!-- Sparkline -->
 	{include file="admin@frame/include:js-jquery-sparkline"/}
 	<!-- ChartJS -->
-	{include file="admin@frame/include:js-chartjs"/}
+	{include file="admin@frame/include:js-chart"/}
 	<!-- icheck -->
 	{include file="admin@frame/include:js-icheck"/}
-	<!-- common -->
+	<!-- layer -->
+	{include file="admin@frame/include:js-layer"/}
+  	<!-- common -->
 	{include file="admin@frame/include:js-common-admin"/}
 	<!-- script -->
-	{block name="script"}
+	{block name="js"}
 
 	{/block}
+	<!-- 统计脚本 -->
+	{$tongji|default=''}
 </body>
 </html>

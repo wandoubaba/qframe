@@ -54,7 +54,7 @@ class Res
 	{
 		$this->status = false;
 		$this->message_title = $title;
-		$this->message = $msg;
+		$this->message = $msg ? $msg : $title;
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Res
 	{
 		$this->status = true;
 		$this->message_title = $title;
-		$this->message = $msg;
+		$this->message = $msg ? $msg : $title;
 	}
 
 	/**

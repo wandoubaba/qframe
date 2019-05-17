@@ -1,0 +1,42 @@
+<!-- User Account: style can be found in dropdown.less -->
+<li class="dropdown user user-menu">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    
+    <span>{$Think.session.admin_infor.admin_account}</span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- User image -->
+    <li class="user-header" style="height:auto">
+      <!-- <img src="__STATIC__/lib/adminlte/img/user2-160x160.jpg" class="img-circle" alt="头像" /> -->
+      <!-- /img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
+      <p>
+       {$Think.session.admin_infor.admin_account}
+       <small>{$Think.session.admin_role.role_name?$Think.session.admin_role.role_name:'未授权'}</small>
+     </p>
+   </li>
+   <!-- Menu Body -->
+   <li class="user-body">
+    <div class="row">
+      <div class="col-xs-4 text-center">
+        <a href="{:url('admin/myself/password')}">修改密码</a>
+      </div>
+      <div class="col-xs-4 text-center">
+        <a href="javascript:;" onclick="ajax_post('{:url("admin/myself/do_sync_session")}','')">刷新权限</a>
+      </div>
+      <div class="col-xs-4 text-center">
+        <a href="javascript:;" onclick="ajax_post('{:url("admin/myself/do_clear_cache")}','')">清除缓存</a>
+      </div>
+    </div>
+    <!-- /.row -->
+  </li>
+  <!-- Menu Footer-->
+  <li class="user-footer">
+    <div class="pull-left">
+      <a href="{:url('admin/myself/index')}" class="btn btn-default btn-flat">个人信息</a>
+    </div>
+    <div class="pull-right">
+      <a href="{:url('admin/myself/do_logout')}" class="btn btn-default btn-flat">退出系统</a>
+    </div>
+  </li>
+</ul>
+</li>

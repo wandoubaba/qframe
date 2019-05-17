@@ -1,0 +1,132 @@
+{extend name="admin@frame/template:bootstrap_frame"/}
+{block name="body"}
+<form method="post" class="form-horizontal">
+	<div class="form-group">
+		<label class="control-label col-sm-3"><span class="text-red">*</span>姓名：</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="姓名，1到25位之间" id="admin_name" name="admin_name" rangelength="[1,25]" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3"><span class="text-red">*</span>账号：</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="字母、数字、下划线、减号，4到25位之间" id="admin_account" name="admin_account" rangelength="[4,25]" required>
+		</div>
+	</div>		
+	<div class="form-group">
+		<label class="control-label col-sm-3"><span class="text-red">*</span>密码：</label>
+		<div class="col-sm-9">
+			<input type="password" class="form-control" placeholder="字母、数字、下划线、减号，4到25位之间" id="admin_password" name="admin_password" rangelength="[4,25]" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3"><span class="text-red">*</span>密码再输入一次：</label>
+		<div class="col-sm-9">
+			<input type="password" class="form-control" placeholder="字母、数字、下划线、减号，4到25位之间" id="admin_password_confirm" name="admin_password_confirm" equalTo:admin_password rangelength="[4,25]" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">邮箱：</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="管理员使用的邮箱" id="admin_email" name="admin_email">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">电话：</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="管理员使用的联系电话" id="admin_telephone" name="admin_telephone">
+		</div>
+	</div>
+	<div class="form-group">
+		<lable class="control-label col-sm-3">角色：</lable>
+		<div class="col-sm-9">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<input type="radio" checked="true" value="" id="admin_role_id0" name="admin_role_id" />
+					<label for="admin_role_id0">无</label>
+					<label for="admin_role_id0">如果先不设定角色，可以选这个</label>
+				</div>
+			</div>
+	    	{volist name='list' id='vo'}
+	    	<div class="panel panel-default">
+				<div class="panel-heading">
+					<input type="radio" id="admin_radio_id{$vo.role_id}" value="{$vo.role_id}" name="admin_role_id" />
+					<label for="admin_radio_id{$vo.role_id}">{$vo.role_id}</label>
+					<label for="admin_radio_id{$vo.role_id}">{$vo.role_name}</label>
+				</div>
+				<div class="panel-body">
+		    		{volist name='vo.child' id='vo_c'}
+		    			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">{$vo_c.menu_name}</div>
+		    		{/volist}
+				</div>
+			</div>
+	    	{/volist}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">可用状态：</label>
+		<div class="col-sm-9">
+			<input type='checkbox' id='admin_status' name='admin_status' checked="checked" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-3">说明：</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" placeholder="简单描述管理员" id="admin_description" name="admin_description">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-9 col-sm-offset-3">
+			<button type="submit" class="btn btn-success disabled" disabled="true">提交数据</button>
+		</div>
+	</div>
+</form>
+{/block}
+
+{block name="js"}
+{include file="admin@frame/include:js-jquery-validation"/}
+<script type="text/javascript">
+	$(function() {
+		// 初始化checkbox的icheck样式
+		$('input[type="checkbox"],input[type="radio"]').iCheck({
+			checkboxClass: 'icheckbox_minimal-blue',
+			radioClass   : 'iradio_minimal-blue'
+	    })
+		// 实现菜单全选
+		$("#checkall:checkbox").on("ifChecked ifUnchecked",function(event) {
+			$(this).parents(".form-group").find(".panel input:checkbox").iCheck(event.type=='ifChecked' ? 'check' : 'uncheck');
+		});
+
+		// 只有当表单中有数据变化时，提交按钮才可用
+		$("form").children().bind('input propertychange ifChecked ifUnchecked',function() {
+			$(":submit").removeClass('disabled').removeAttr('disabled');
+		});
+
+		$("form").validate({
+			rules: {
+				admin_account: {
+					isRightfulString: true
+				},
+				admin_password_confirm: {
+      				equalTo : "#admin_password"
+    			},
+    			admin_email: {
+    				email : true
+    			},
+    			admin_telephone: {
+    				isTel : true
+    			}
+			},
+			submitHandler: function(form) {
+				// 当验证通过时执行ajax提交
+				ajax_post("{:url('admin/admin/do_admin_add')}",$("form").serialize());
+			}
+		});
+	});
+</script>
+{/block}
+
+{block name="css"}
+
+{/block}

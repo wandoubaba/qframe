@@ -1,0 +1,138 @@
+{extend name='admin@frame/template:adminlte_index'/}
+
+{block name="bread-nav"}
+	
+{/block}
+
+{block name="main-title"}
+	{$pagetitle|default=""}
+	<small></small>
+{/block}
+
+{block name="main-content"}
+<div class="alert alert-warning alert-dismissible"">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<i class="icon fa fa-bell"></i> 提示：在电脑上操作会更舒服一些。
+</div>
+<div class="box">
+	<div class="box-header">
+		<span> 
+			<a href="javascript:;" onclick="item_multidelete('{:url("admin/menu/do_menu_multidelete")}','to_multidelete[]')" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i> 批量删除</a> 
+			<a href="javascript:;" onclick="modal_show_iframe('添加菜单','{:url("admin/menu/add")}','')" class="btn btn-primary"><i class="fa fa-fw fa-plus-square"></i> 新增数据</a> 
+		</span>
+		<span class="pull-right">共有数据：<strong>{$count}</strong> 条</span>
+	</div>
+	<div class="box-body" style="overflow:scroll;">
+		
+		<table class="table table-bordered table-strited table-hover text-nowrap">
+			<thead>
+				<tr>
+					<th scope="col" colspan="11">菜单（功能）清单</th>
+				</tr>
+				<tr>
+					<th><input type="checkbox" name="" value=""></th>
+					<th>操作</th>
+					<th>ID</th>
+					<th>菜单名</th>
+					<th>路由</th>
+					<th>上级</th>
+					<th>排序</th>
+					<th>可见</th>
+					<th>角色</th>
+					<th>创建时间</th>
+					<th>修改时间</th>
+				</tr>
+			</thead>
+			<tbody>
+			{volist name='list' id='vo'}
+				<tr class="text-c warning" title="{$vo.menu_description}">
+					<td><input type="checkbox" value="{$vo.menu_id}" name="to_multidelete[]"></td>
+					<td class="td-manage">
+					{if condition="$vo.menu_visible eq '显示'"}
+						<a title="隐藏" href="javascript:;" onClick="ajax_post_confirm('{:url("admin/menu/do_menu_visible")}',{id:'{$vo.menu_id}'},'{$vo.menu_name}','隐藏');"><i class="fa fa-fw fa-eye-slash"></i></a> 
+					{else /}
+						<a title="显示" href="javascript:;" onClick="ajax_post_confirm('{:url("admin/menu/do_menu_visible")}',{id:'{$vo.menu_id}'},'{$vo.menu_name}','显示');"><i class="fa fa-fw fa-eye"></i></a> 
+					{/if}
+						<a title="编辑" href="javascript:;" onclick="modal_show_iframe('编辑菜单','{:url("admin/menu/edit",["id"=>$vo.menu_id])}','')"><i class="fa fa-fw fa-pencil-square-o"></i></a> 
+						<a title="删除" href="javascript:;" onclick="ajax_post_confirm('{:url("admin/menu/do_menu_delete")}',{id:'{$vo.menu_id}'},'{$vo.menu_name}','删除');"><i class="fa fa-fw fa-trash-o"></i></a>
+						<a title="添加子菜单" href="javascript:;" onclick="modal_show_iframe('添加菜单','{:url("admin/menu/add",["fid"=>$vo.menu_id])}','')"><i class="fa fa-fw fa-plus-square-o"></i></a>
+					</td>
+					<td>{$vo.menu_id}</td>
+					<td class="text-l"><span class="name">{$vo.menu_name}</span></td>
+					<td class="text-l">{$vo.menu_route}</td>
+					<td>{$vo.menu_father_id}</td>
+					<td>{$vo.menu_sn}</td>
+					<td>
+						{if condition="$vo.menu_visible eq '显示'"}
+							<span class="label label-success">
+								{$vo.menu_visible}
+							</span>
+						{else /}
+							<span class="label label-default">
+								{$vo.menu_visible}
+							</span>
+						{/if}
+					</td>
+					<td style="white-space:normal">
+						{volist name='vo.role' id='vo_r'}
+							<span title="{$vo_r.role_description}">{$vo_r.role_name}</span> /
+						{/volist}
+					</td>
+					<td style="white-space:normal">{$vo.create_time}</td>
+					<td style="white-space:normal">{$vo.update_time}</td>
+				</tr>
+				{/* 子菜单的名称一定要用menu_child才能分配到数据 */}
+				{volist name='vo.menu_child' id='vo_c'}
+					<tr class="text-c" title="{$vo_c.menu_description}">
+						<td><input type="checkbox" value="{$vo_c.menu_id}" name="to_multidelete[]"></td>
+						<td class="td-manage">
+						{if condition="$vo_c.menu_visible eq '显示'"}
+							<a title="隐藏" href="javascript:;" onClick="ajax_post_confirm('{:url("admin/menu/do_menu_visible")}',{id:'{$vo_c.menu_id}'},'{$vo_c.menu_name}','隐藏');"><i class="fa fa-fw fa-eye-slash"></i></a> 
+						{else /}
+							<a title="显示" href="javascript:;" onClick="ajax_post_confirm('{:url("admin/menu/do_menu_visible")}',{id:'{$vo_c.menu_id}'},'{$vo_c.menu_name}','显示');"><i class="fa fa-fw fa-eye"></i></a> 
+						{/if}
+							<a title="编辑" href="javascript:;" onclick="modal_show_iframe('编辑菜单','{:url("admin/menu/edit",["id"=>$vo_c.menu_id])}','')"><i class="fa fa-fw fa-pencil-square-o"></i></a> 
+							<a title="删除" href="javascript:;" onclick="ajax_post_confirm('{:url("admin/menu/do_menu_delete")}',{id:'{$vo_c.menu_id}'},'{$vo_c.menu_name}','删除');"><i class="fa fa-fw fa-trash-o"></i></a>
+						</td>
+						<td>{$vo_c.menu_id}</td>
+						<td class="text-l">└ <span class="name">{$vo_c.menu_name}</span></td>
+						<td class="text-l">{$vo_c.menu_route}</td>
+						<td>{$vo_c.menu_father_id}</td>
+						<td>{$vo_c.menu_sn}</td>
+						<td>
+							{if condition="$vo_c.menu_visible eq '显示'"}
+								<span class="label label-success">
+									{$vo_c.menu_visible}
+								</span>
+							{else /}
+								<span class="label label-default">
+									{$vo_c.menu_visible}
+								</span>
+							{/if}
+						</td>
+						<td style="white-space:normal">
+							{volist name='vo_c.role' id='vo_c_r'}
+								<span title="{$vo_c_r.role_description}">{$vo_c_r.role_name}</span> /
+							{/volist}
+						</td>
+						<td style="white-space:normal">{$vo_c.create_time}</td>
+						<td style="white-space:normal">{$vo_c.update_time}</td>
+					</tr>
+				{/volist}
+			{/volist}
+			</tbody>
+		</table>
+	</div>
+	<div class="box-footer">
+		<div class="text-warning text-center">在电脑上操作会更舒服一些。</div>
+	</div>
+</div>
+{/block}
+
+{block name="js"}
+
+{/block}
+
+{block name="css"}
+
+{/block}

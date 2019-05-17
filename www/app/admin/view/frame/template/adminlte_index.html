@@ -22,6 +22,8 @@
   <!-- css -->
   {block name="css"}
   {/block}
+  <!-- 页面完全加载前显示“loading” -->
+  {include file="common@frame/include:js-loading-in-head"/}
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
@@ -44,8 +46,11 @@
             {include file="admin@frame/include:temp-navrightmenu"/}
             {/block}
             {block name="navbar-user-info"}
-            {include file="admin@frame/include:temp-navuserinfo"/}
+            {include file="admin@frame/include:segment-navuserinfo"/}
             {/block}
+            <li>
+              <a href="javascript:location.replace(location.href);" title="刷新" ><i class="fa fa-refresh"></i></a>  
+            </li>
             <!-- Control Sidebar Toggle Button -->
             <li>
               <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -109,15 +114,17 @@
   {include file="admin@frame/include:js-adminlte"/}
   <!-- Sparkline -->
   {include file="admin@frame/include:js-jquery-sparkline"/}
-  <!-- layer mobile -->
-  {include file="admin@frame/include:js-layer-mobile"/}
   <!-- AdminLTE Skin -->
   {include file="admin@frame/include:js-adminlte-skin"/}
+  <!-- layer -->
+  {include file="admin@frame/include:js-layer"/}
   <!-- common -->
   {include file="admin@frame/include:js-common-admin"/}
   <!-- script -->
-  {block name="script"}
+  {block name="js"}
 
   {/block}
+  <!-- 统计脚本 -->
+  {$tongji|default=''}
 </body>
 </html>

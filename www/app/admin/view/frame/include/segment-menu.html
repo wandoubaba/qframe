@@ -14,6 +14,35 @@
 	</li>
 	<li class="treeview">
 		<a href="#">
+			<i class="fa fa-key fa-fw"></i> <span>权限管理</span>
+			<span class="pull-right-container">
+				<i class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+		<ul class="treeview-menu">
+			<li><a href="{:url('/admin/menu')}"><i class="fa fa-list-alt fa-fw"></i> <span>后台菜单</span></a></li>
+			<li><a href="{:url('/admin/role')}"><i class="fa fa-group fa-fw"></i> <span>角色管理</span></a></li>
+			<li><a href="{:url('/admin/admin')}"><i class="fa fa-user fa-fw"></i> <span>管理员账号</span></a></li>
+		</ul>
+	</li>
+	<li class="treeview">
+		<a href="#">
+			<i class="fa fa-gears fa-fw"></i> <span>系统设置</span>
+			<span class="pull-right-container">
+				<i class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+		<ul class="treeview-menu">
+			<li><a href="{:url('/admin/config')}"><i class="fa fa-gear fa-fw"></i> <span>系统配置</span></a></li>
+			<li><a href="{:url('/admin/myself')}"><i class="fa fa-user fa-fw"></i> <span>个人信息</span></a></li>
+			<li><a href="{:url('/admin/myself/password')}"><i class="fa fa-lock fa-fw"></i> <span>修改密码</span></a></li>
+			<li><a href="javascript:;" onclick="ajax_post('{:url("admin/myself/do_sync_session")}','')"><i class="fa fa-ticket fa-fw"></i> <span>刷新权限</span></a></li>
+			<li><a href="javascript:;" onclick="ajax_post('{:url("admin/myself/do_clear_cache")}','')"><i class="fa fa-refresh fa-fw"></i> <span>清除缓存</span></a></li>
+			<li><a href="{:url('admin/myself/do_logout')}"><i class="fa fa-sign-out fa-fw"></i> <span>退出登录</span></a></li>
+		</ul>
+	</li>
+	<li class="treeview">
+		<a href="#">
 			<i class="fa fa-dashboard fa-fw"></i> <span>演示</span>
 			<span class="pull-right-container">
 				<i class="fa fa-angle-left pull-right"></i>
