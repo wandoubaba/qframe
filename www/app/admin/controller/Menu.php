@@ -18,6 +18,7 @@ class Menu extends AdminBase
     	$this->view->assign('pagetitle', '菜单列表');
         // 调用Base中的menu_init方法获取权限内的菜单
         $list = $this->get_menu_list(false);
+        $this->view->assign('routes', $this->get_routes('admin'));
         // 如果是普通管理员，取权限中的菜单数量，如果是超级管理员，取数据表中的记录总数
         $count = Session::has('admin_menus')? sizeof(Session::get('admin_menus')) : MenuModel::count();
         // 将count和list分配到页面中
@@ -39,7 +40,12 @@ class Menu extends AdminBase
     	$list = MenuModel::where(['menu_father_id'=>0])->order(['menu_sn'=>'asc'])->select();
     	// 将父级菜单数据输出到页面
     	$this->view->assign('list',$list);
-
+        // 准备路由列表
+        $routes = $this->get_routes('admin');
+        $routes_exist = array_unique(MenuModel::column('menu_route'));
+        // 添加时列表中只显示未保存在数据库中的路由
+        $this->view->assign('routes',array_diff($routes, $routes_exist));
+        // 准备角色列表
         $role = RoleModel::all();
         // 用模型的多对多关联方式查询每个角色对应的菜单
         foreach($role as $n=>$val) {
@@ -69,6 +75,10 @@ class Menu extends AdminBase
     		// 准备父级菜单列表
     		$list = MenuModel::where(['menu_father_id'=>0])->order(['menu_sn'=>'asc'])->select();
     		$this->view->assign('list',$list);
+            // 准备路由列表
+            $routes = $this->get_routes('admin');
+            // edit时列表中显示全部路由
+            $this->view->assign('routes',$routes);
             // 准备菜单角色列表
             $role = RoleModel::all();
             // 用模型的多对多关联方式查询每个角色对应的菜单

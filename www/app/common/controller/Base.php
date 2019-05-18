@@ -79,4 +79,59 @@ class Base extends Controller
         return $config->config_value;
     }
 
+    /**
+     * 获取指定模块下的所有方法的路由
+     * @param  [type] $module 模块名字符串
+     * @return [type]         路由字符串数组（小写）
+     */
+    protected function get_routes($module)
+    {
+        $controllers = $this->get_controllers($module);
+        $actions = [];
+        $routes = [];
+        foreach( $controllers as $key=>$value) {
+            $controllerpath = $module.'/'.strtolower($value);
+            $classpath = 'app\\'.$module.'\\controller' . '\\' . $value;
+            $baseclasspath = 'app\\'.$module.'\\controller\\Base';
+            $actions[$value] = $this->get_actions($classpath, $baseclasspath);
+            foreach($actions[$value] as $n=>$val) {
+                $route = $controllerpath.'/'.$val;
+                array_push($routes, $route);
+            }
+        }
+        return $routes;
+    }
+
+    /**
+     * 获取指定模块下的所有控制器
+     * @param  [type] $module               [模块名]
+     * @param  string $base_controller_name 可以指定忽略Base控制器
+     * @return [type]                       控制器数组（区分大小写）
+     */
+    protected function get_controllers($module, $base_controller_name='')
+    {
+        $dir = APP_PATH.$module.'/controller';
+        $pathList = glob($dir . '/*.php');
+        $res = [];
+        foreach($pathList as $key => $value) {
+            $res[] = basename($value, '.php');
+        }
+        $res = array_diff($res, [$base_controller_name]);
+        return $res;
+    }
+
+    /**
+     * 获取控制器下的所有方法名
+     * @param  [type] $controller_path      指定控制器路径（类名）
+     * @param  string $base_controller_path 可以指定忽略Base类的路径
+     * @return [type]                       方法名数组（区分大小写）
+     */
+    protected function get_actions($controller_path, $base_controller_path='')
+    {
+        $methods = get_class_methods(new $controller_path());
+        $baseMethods = $base_controller_path? get_class_methods(new $base_controller_path()) : [];
+        $res = array_diff($methods, $baseMethods);
+        return $res;
+    }
+
 }

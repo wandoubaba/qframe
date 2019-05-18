@@ -1,0 +1,29 @@
+{extend name='frame/template/adminlte_index'/}
+
+{block name="bread-nav"}
+
+{/block}
+
+{block name="main-title"}
+{$pagetitle|default=""}
+<small></small>
+{/block}
+
+{block name="main-content"}
+<div id="container">
+    {foreach name="list" item="vo" }
+        <div>
+            {$key} : {$vo}
+        </div>
+    {/foreach}
+</div>
+{/block}
+
+{block name="js"}
+{include file="frame/include/js-jquery-wandoubaba-linkage"/}
+
+{/block}
+
+{block name="css"}
+
+{/block}

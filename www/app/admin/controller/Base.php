@@ -68,6 +68,8 @@ class Base extends CommonBase
                     // admin模块中的Login控制器无条件允许访问
                 case 'admin/index':
                     // admin模块中的Index控制器对已登录用户无条件允许访问
+                case 'admin/example':
+                    // admin模块中的Example控制器对已登录用户无条件允许访问
                 case 'admin/myself':
                     // admin模块中的Myself控制器对已登录用户无条件允许访问
                     $permissible = true;
@@ -210,7 +212,7 @@ class Base extends CommonBase
                     // 超级管理员，过滤
                     unset($adminlist[$n]);
                 } else {
-                    if(!Session::get('admin_infor')->admin_super) {
+                    if(!Session::get('admin_infor')->admin_super && $admin_val->role) {
                         if(!empty(array_diff(array_column($admin_val->role->menus, 'menu_id'), array_column(Session::get('admin_menus'), 'menu_id')))) {
                             // 高权限，删
                             unset($adminlist[$n]);

@@ -1,40 +1,35 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu" data-widget="tree">
 	<li class="header">功能目录</li>
-	<li class="treeview menu-open active">
-		<a href="#">
-			<i class="fa fa-home fa-fw"></i> <span>主目录</span>
+	<li>
+      <a href="{:url('admin/index/index')}">
+        <i class="fa fa-home fa-fw"></i> <span>首页</span>
+      </a>
+    </li>
+    {volist name="menu_list" id="vo"}
+ 	<li class="treeview">
+		<a href="{notempty name='$vo.menu_route'}{:url($vo.menu_route)}{else}#{/notempty}" title="{$vo.menu_description}">
+			<i class="fa fa-gear fa-fw"></i> <span>{$vo.menu_name}</span>
 			<span class="pull-right-container">
 				<i class="fa fa-angle-left pull-right"></i>
 			</span>
 		</a>
 		<ul class="treeview-menu">
-			<li><a href="{:url('admin/index/index')}"><i class="fa fa-home fa-fw"></i> <span>首页</span></a></li>
+			{volist name="vo.menu_child" id="vo_c"}
+			<li><a href="{:url($vo_c.menu_route)}" title="{$vo_c.menu_description}"><i class="fa fa-list-alt fa-fw"></i> <span>{$vo_c.menu_name}</span></a></li>
+			{/volist}
 		</ul>
 	</li>
+    {/volist}
 	<li class="treeview">
 		<a href="#">
-			<i class="fa fa-key fa-fw"></i> <span>权限管理</span>
+			<i class="fa fa-gear fa-fw"></i> <span>我的账号</span>
 			<span class="pull-right-container">
 				<i class="fa fa-angle-left pull-right"></i>
 			</span>
 		</a>
 		<ul class="treeview-menu">
-			<li><a href="{:url('/admin/menu')}"><i class="fa fa-list-alt fa-fw"></i> <span>后台菜单</span></a></li>
-			<li><a href="{:url('/admin/role')}"><i class="fa fa-group fa-fw"></i> <span>角色管理</span></a></li>
-			<li><a href="{:url('/admin/admin')}"><i class="fa fa-user fa-fw"></i> <span>管理员账号</span></a></li>
-		</ul>
-	</li>
-	<li class="treeview">
-		<a href="#">
-			<i class="fa fa-gears fa-fw"></i> <span>系统设置</span>
-			<span class="pull-right-container">
-				<i class="fa fa-angle-left pull-right"></i>
-			</span>
-		</a>
-		<ul class="treeview-menu">
-			<li><a href="{:url('/admin/config')}"><i class="fa fa-gear fa-fw"></i> <span>系统配置</span></a></li>
-			<li><a href="{:url('/admin/myself')}"><i class="fa fa-user fa-fw"></i> <span>个人信息</span></a></li>
+			<li><a href="{:url('/admin/myself/index')}"><i class="fa fa-user fa-fw"></i> <span>个人信息</span></a></li>
 			<li><a href="{:url('/admin/myself/password')}"><i class="fa fa-lock fa-fw"></i> <span>修改密码</span></a></li>
 			<li><a href="javascript:;" onclick="ajax_post('{:url("admin/myself/do_sync_session")}','')"><i class="fa fa-ticket fa-fw"></i> <span>刷新权限</span></a></li>
 			<li><a href="javascript:;" onclick="ajax_post('{:url("admin/myself/do_clear_cache")}','')"><i class="fa fa-refresh fa-fw"></i> <span>清除缓存</span></a></li>
@@ -51,7 +46,8 @@
 		<ul class="treeview-menu">
 			<li><a href="{:url('admin/example/chart')}"><i class="fa fa-bar-chart fa-fw"></i> <span>chart组件演示</span></a></li>
 			<li><a href="{:url('admin/example/linkage')}"><i class="fa fa-th-list fa-fw"></i> <span>无限联动演示</span></a></li>
-			<li><a href="{:url('admin/login/index')}"><i class="fa fa-address-card-o fa-fw"></i> <span>登录页演示</span></a></li>
+			<li><a href="{:url('admin/example/controllermethods')}"><i class="fa fa-address-card-o fa-fw"></i> <span>获取控制器方法</span></a></li>
+			<li><a href="{:url('admin/example/test')}"><i class="fa fa-address-card-o fa-fw"></i> <span>其他测试</span></a></li>
 		</ul>
 	</li>
 </ul>

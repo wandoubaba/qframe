@@ -64,8 +64,8 @@ class Login extends CommonBase
 		}
 		if(!to_encrypt_compare($admin->admin_password, $data['admin_password'], $data['admin_account'])) {
 			// 密码错误
-			// $res->message .= '密码错误';
-			$res->message .= $admin->admin_password;
+			$res->message .= '密码错误';
+			// $res->message .= $admin->admin_password;
 			return $res;
 		}
 		if($admin->admin_status != '正常') {

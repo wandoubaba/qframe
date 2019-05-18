@@ -10,7 +10,14 @@
 	<div class="form-group">
 		<label class="control-label col-sm-3">完整路由</label>
 		<div class="col-sm-9">
-			<input type="text" class="form-control" placeholder="举例：admin/index/index" id="menu_route" name="menu_route" minlength="2" maxlength="50">
+			<select class="form-control" size="1" id="menu_route" name="menu_route">
+				<option value="" selected>无</option>
+				{foreach name="routes" item="vo" }
+		        <option value="{$vo}">
+		            {$vo}
+		        </option>
+		    {/foreach}
+			</select>
 		</div>
 	</div>
 	<div class="form-group">

@@ -119,7 +119,6 @@ $(function () {
 	 	rules: {
 	 		admin_account: "isRightfulString",
 	 		admin_password: "isRightfulString",
-
 	 	},
 	 	messages: {
 
@@ -138,11 +137,11 @@ $(function () {
 						// 返回data对象中的status元素值为1表示数据插入成功
 						layer.msg(data.message, {icon: 6, time: 1000}); // 使用H-ui的浮动提示框，2秒后自动消失
 						setTimeout(function() {
-							parent.location.href = "{:url('/admin')}";
+							parent.location.href = "{:url('admin/index/index')}";
 						}, 1300); //2秒后对父页面执行刷新（相当于关闭了弹层同时更新了数据）
 					} else {
 						// 返回data对象的status值不为1，表示数据插入失败
-						layer.msg(data.message, {icon: 5, time: 1000}); // 使用H-ui的浮动提示框，2秒后自动消失
+						layer.alert(data.message, {icon: 5}); // 使用H-ui的浮动提示框，2秒后自动消失
 						refreshCaptcha(); // 重置一下验证码
 						// 页面停留在这里，不再执行任何动作
 					}

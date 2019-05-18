@@ -59,8 +59,8 @@
 						<a title="编辑" href="javascript:;" onclick="modal_show_iframe('编辑管理员','{:url("admin/admin/edit",["id"=>$vo.admin_id])}','')"><i class="fa fa-fw fa-pencil-square-o"></i></a> 
 						{if condition="$vo.admin_account neq 'admin' and $vo.admin_super eq 0"}
 						<a title="改密码" href="javascript:;" onclick="modal_show_iframe('修改密码','{:url("admin/admin/password",["id"=>$vo.admin_id])}','')"><i class="fa fa-fw fa-key"></i></a>
-						{/if}
 						<a title="删除" href="javascript:;" onclick="ajax_post_confirm('{:url("admin/admin/do_admin_delete")}',{id:'{$vo.admin_id}'},'{$vo.admin_name}','删除');"><i class="fa fa-fw fa-trash-o"></i></a>
+						{/if}
 					</td><td>{$vo.admin_id}</td>
 					<td>{$vo.admin_name}</td>
 					<td>

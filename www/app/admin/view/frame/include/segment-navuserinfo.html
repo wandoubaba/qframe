@@ -2,7 +2,7 @@
 <li class="dropdown user user-menu">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     
-    <span>{$Think.session.admin_infor.admin_account}</span>
+    <span>{$Think.session.admin_infor.admin_name}</span>
   </a>
   <ul class="dropdown-menu">
     <!-- User image -->
@@ -10,6 +10,7 @@
       <!-- <img src="__STATIC__/lib/adminlte/img/user2-160x160.jpg" class="img-circle" alt="头像" /> -->
       <!-- /img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
       <p>
+       {$Think.session.admin_infor.admin_name}<br/>
        {$Think.session.admin_infor.admin_account}
        <small>{$Think.session.admin_role.role_name?$Think.session.admin_role.role_name:'未授权'}</small>
      </p>

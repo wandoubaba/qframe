@@ -1,9 +1,9 @@
 <?php
 namespace app\admin\model;
 
-use app\common\model\BaseCUD;
+use app\common\model\BaseCU;
 
-class Menu extends BaseCUD
+class Menu extends BaseCU
 {
 	// 定义数据表中menu_visible字段获取器
 	public function getMenuVisibleAttr($value) {

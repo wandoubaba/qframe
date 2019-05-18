@@ -58,8 +58,14 @@
 						<a title="添加子菜单" href="javascript:;" onclick="modal_show_iframe('添加菜单','{:url("admin/menu/add",["fid"=>$vo.menu_id])}','')"><i class="fa fa-fw fa-plus-square-o"></i></a>
 					</td>
 					<td>{$vo.menu_id}</td>
-					<td class="text-l"><span class="name">{$vo.menu_name}</span></td>
-					<td class="text-l">{$vo.menu_route}</td>
+					<td><span class="name">{$vo.menu_name}</span></td>
+					<td >
+						{in name="$vo.menu_route" value="$routes"}
+							{$vo.menu_route}
+						{else}
+							<span class="text-red">{$vo.menu_route}</span>
+						{/in}
+					</td>
 					<td>{$vo.menu_father_id}</td>
 					<td>{$vo.menu_sn}</td>
 					<td>
@@ -95,8 +101,14 @@
 							<a title="删除" href="javascript:;" onclick="ajax_post_confirm('{:url("admin/menu/do_menu_delete")}',{id:'{$vo_c.menu_id}'},'{$vo_c.menu_name}','删除');"><i class="fa fa-fw fa-trash-o"></i></a>
 						</td>
 						<td>{$vo_c.menu_id}</td>
-						<td class="text-l">└ <span class="name">{$vo_c.menu_name}</span></td>
-						<td class="text-l">{$vo_c.menu_route}</td>
+						<td>└ <span class="name">{$vo_c.menu_name}</span></td>
+						<td>
+							{in name="$vo_c.menu_route" value="$routes"}
+								{$vo_c.menu_route}
+							{else}
+								<span class="text-red">{$vo_c.menu_route}</span>
+							{/in}
+						</td>
 						<td>{$vo_c.menu_father_id}</td>
 						<td>{$vo_c.menu_sn}</td>
 						<td>
