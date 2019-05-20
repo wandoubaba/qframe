@@ -1,0 +1,29 @@
+{
+    "name": "wandoubaba/qframe",
+    "description": "a web-frame with thinkphp+adminlte+bootstrap+jquery+vue+framework7+...",
+    "type": "project",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "wandoubaba",
+            "email": "wandoubaba517@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "topthink/framework": "5.0.*",
+        "qcloud/cos-sdk-v5": ">=1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "app"
+        }
+    },
+    "extra": {
+        "think-path": "thinkphp"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
