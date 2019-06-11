@@ -1,9 +1,0 @@
-<FilesMatch ".(yml|example|env|gitignore|ht*|ini|phps|fla|psd|log|sh)$">
-Order Allow,Deny
-Deny from all
-</FilesMatch>
-Options All -Indexes
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteRule ^$ \/public
-</IfModule>

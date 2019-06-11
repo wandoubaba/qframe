@@ -8,6 +8,7 @@ class ComposerStaticInit2bc4f313dba415539e266f7ac2c87dcd
 {
     public static $files = array (
         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
+        '841780ea2e1d6545ea3a253239d59c05' => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu/functions.php',
         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
         'ddc3cd2a04224f9638c5d0de6a69c7e3' => __DIR__ . '/..' . '/topthink/think-migration/src/config.php',
         'cc56288302d9df745d97c934d6a6e5f0' => __DIR__ . '/..' . '/topthink/think-queue/src/common.php',
@@ -32,6 +33,14 @@ class ComposerStaticInit2bc4f313dba415539e266f7ac2c87dcd
         'W' => 
         array (
             'Workerman\\' => 10,
+        ),
+        'S' => 
+        array (
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+        ),
+        'Q' => 
+        array (
+            'Qiniu\\' => 6,
         ),
         'P' => 
         array (
@@ -82,9 +91,38 @@ class ComposerStaticInit2bc4f313dba415539e266f7ac2c87dcd
         array (
             0 => __DIR__ . '/..' . '/workerman/workerman',
         ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Qiniu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu',
+        ),
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-migration/phinx/src/Phinx',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'Q' => 
+        array (
+            'Qcloud\\Cos\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/qcloud/cos-sdk-v5/src',
+            ),
+        ),
+        'G' => 
+        array (
+            'Guzzle\\Tests' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/guzzle/tests',
+            ),
+            'Guzzle' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/guzzle/src',
+            ),
         ),
     );
 
@@ -93,6 +131,7 @@ class ComposerStaticInit2bc4f313dba415539e266f7ac2c87dcd
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit2bc4f313dba415539e266f7ac2c87dcd::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit2bc4f313dba415539e266f7ac2c87dcd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit2bc4f313dba415539e266f7ac2c87dcd::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

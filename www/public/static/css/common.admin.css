@@ -17,3 +17,6 @@
 .page-footer a,.page-footer a:hover{
 	color:#444
 }
+.ellipsis {
+	overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}

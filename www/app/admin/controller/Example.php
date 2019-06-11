@@ -3,6 +3,8 @@ namespace app\admin\controller;
 
 use app\admin\controller\Base as AdminBase;
 use app\admin\model\Menu as MenuModel;
+use think\Env;
+use app\common\model\Res;
 
 class Example extends AdminBase
 {
@@ -34,5 +36,13 @@ class Example extends AdminBase
         // dump($routes);
         // return $this->view->fetch();
         dump($this->get_menu_list());
+    }
+
+    public function Ueditor()
+    {
+        ## TODO:
+        #测试Todo
+        $this->view->assign('pagetitle','Ueditor');
+        return $this->view->fetch();
     }
 }

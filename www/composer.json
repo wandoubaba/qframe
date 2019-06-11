@@ -13,7 +13,8 @@
     "require": {
         "php": ">=5.4.0",
         "topthink/framework": "5.0.*",
-        "qcloud/cos-sdk-v5": ">=1.0"
+        "qcloud/cos-sdk-v5": ">=1.0",
+        "qiniu/php-sdk": "dev-master"
     },
     "autoload": {
         "psr-4": {

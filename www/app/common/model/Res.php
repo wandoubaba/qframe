@@ -33,6 +33,8 @@ class Res
 	 */
 	public $data;
 
+	public $result;
+
 	/**
 	 * 构造函数
 	 */
@@ -43,6 +45,7 @@ class Res
 		$this->message = '';
 		$this->data_row_count = 0;
 		$this->data = null;
+		$this->result = [];
 	}
 	/**
 	 * 设置失败结果
